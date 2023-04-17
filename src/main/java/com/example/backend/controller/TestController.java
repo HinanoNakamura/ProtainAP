@@ -80,7 +80,7 @@ public ResponseEntity<String> receiveFlavors(@RequestBody Map<String, Object> re
 
     @GetMapping(path="/hello")
     public String hello(){
-        return "hello world!!!";
+        return "hello world!!";
     }
 
     
