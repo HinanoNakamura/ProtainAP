@@ -15,3 +15,10 @@ CREATE TABLE protain (
 	img VARCHAR(500) NOT NULL               COMMENT '画像パス',
 	PRIMARY KEY (id)
 );
+
+CREATE TABLE users (
+	id VARCHAR(64) NOT NULL             COMMENT 'ユーザーID',
+	password VARCHAR(16) NOT NULL       COMMENT 'パスワード',
+	icon VARCHAR(500)                   COMMENT 'アイコン画像パス',
+	PRIMARY KEY (id)
+);

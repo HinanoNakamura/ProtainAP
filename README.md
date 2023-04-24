@@ -63,3 +63,11 @@ mvn spring-boot:run
 npm install(初回のみ)
 npm run serve
 ,,,
+
+## MySQL
+docker ps
+docker exec -it aeb37c45b031 /bin/bash
+mysql -h localhost -P 3306 -u test -p
+show databases;
+use doc;
+mysql> show tables;

@@ -1,6 +1,5 @@
 package com.example.backend.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,20 +10,11 @@ import org.springframework.stereotype.Service;
 import com.example.backend.domain.Testes;
 import com.example.backend.repository.TestRepository;
 import com.example.backend.repository.TestRepositorySpecifications;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
 
 @Service
 public class TestService {
     @Autowired
     private TestRepository testRepository;
-    // private TestRepositorySpecifications testRepositorySpecifications;
-
-    // @Autowired
-    // public TestService(TestRepository testRepository, TestRepositorySpecifications testRepositorySpecifications) {
-    //     this.testRepository = testRepository;
-    //     this.testRepositorySpecifications = testRepositorySpecifications;
-    // }
 
     public Testes getTestes(Integer id){
         Optional<Testes> testesOptional =testRepository.findById(id);
@@ -58,5 +48,8 @@ public class TestService {
         return testRepository.findAll(specification);
     }
     
+    public List<Testes> findAllEntities() {
+        return testRepository.findAllRandom();
+    }
     
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +14,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.domain.Testes;
+
 import com.example.backend.service.TestService;
+import com.example.backend.service.UserService;
 
 @RestController
 @CrossOrigin
 class TestController{
+
+    
+
     @Autowired
     TestService testService;
+    // UserService userService;
+
+    // public TestController(UserService userService) {
+    //     this.userService = userService;
+    // }
 
     @GetMapping(path="/testes/{id}")
     public Testes getTestes(@PathVariable("id") Integer id){
@@ -37,7 +47,7 @@ class TestController{
     }
 
     @PostMapping(path="/api/flavors")
-public ResponseEntity<String> receiveFlavors(@RequestBody Map<String, Object> requestBody) {
+public List<Testes> receiveFlavors(@RequestBody Map<String, Object> requestBody) {
     List<Integer> selectedFlavors = (List<Integer>) requestBody.get("flavors");
     List<Integer> selectedPurposes = (List<Integer>) requestBody.get("purposes");
     List<Integer> selectedComponents = (List<Integer>) requestBody.get("components");
@@ -61,26 +71,17 @@ public ResponseEntity<String> receiveFlavors(@RequestBody Map<String, Object> re
     
     
     // do something with selectedFlavors and selectedPurposes
-    return ResponseEntity.ok("コントローラーに届いたよ");
+    return maguro;
 }
 
-// @PostMapping(path="/api/flavors")
-//     public ResponseEntity<String> receiveFlavors(@RequestBody Map<String, Object> requestBody) {
-//         List<Integer> selectedFlavors = (List<Integer>) requestBody.get("flavors");
-//         List<Integer> selectedPurposes = (List<Integer>) requestBody.get("purposes");
-//         List<Integer> selectedComponents = (List<Integer>) requestBody.get("components");
-//         List<Integer> selectedPrices = (List<Integer>) requestBody.get("prices");
-
-//         List<Testes> results = testService.findTestes(selectedFlavors, selectedPurposes, selectedComponents, selectedPrices);
-
-//         return ResponseEntity.ok("Results: " + results);
-//     }
-
-
+@GetMapping(path="/users")
+public List<Testes> users(){
+    return testService.findAllEntities();
+}
 
     @GetMapping(path="/hello")
     public String hello(){
-        return "hello world!!!";
+        return "hello world!!";
     }
 
     
