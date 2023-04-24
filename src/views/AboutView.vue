@@ -1,50 +1,88 @@
 <template>
-    <div class="今月のおすすめ">
-      <h1>今月のおすすめプロテイン一覧</h1>
-  
-    <div class="flexitem">
-      <img src="frontend/src/assets/81BC0hSJ-ZL.jpg" alt="サンプル画像">
-      <p>>ザバス ココア味</p>
-      <a href="">詳細を見る</a>
+
+
+  <div id="app" style="align: center;">
+    <div>
+      <!-- <span>ID:</span>
+      <input
+        type="number"
+        id="testes-id"
+        style="margin-right: 10px;"
+        v-model="testesId"/> -->
+        <h1>💩君もプロテインマスターにならないか？💩</h1>
+      <button
+        @click="search()">押しちゃう？？</button>
     </div>
-  
-    <div class="flexitem">
-      <img src="frontend/src/assets/000000000763_6lK7Cxx.jpg" alt="サンプル画像">
-      <p>DNS いちご味</p>
-      <a href="">詳細を見る</a>
-    </div>
-    </div>
-  </template>
-  
-  <style>
-    body {
-      max-width: 1000px;
-      margin: auto;
+    <!-- <div v-if="result">
+      <h1>{{ result}}</h1>
+      <br>
+      <span>{{ result }}</span>
+      <br>
+      <span>{{ result }}</span>
+    </div> -->
+    <ul v-for="result in results" :key="result.id">
+      <h1>💗おすすめプロテイン💗</h1>
+      <h2>{{ "名前：" + result.name }} </h2>
+  <h2>{{"価格:" + result.price }}</h2>
+  <li ><img v-bind:src="result.img" alt="result.img"></li>
+</ul>
+
+<br>
+
+  </div>
+ 
+</template>
+
+<script>
+import {Service} from "@/store/index.js"
+
+export default {
+  name: 'App',
+  data(){
+    return{
+      testesId:null,
+      // result:"",
+      results:[],
+      name: '',
+      pass: '',
+      isValidName: true,
+      isValidPass: true
     }
-    .flexbox {
-      display: flex;
-      justify-content: space-between;
-      flex-flow: row wrap;
+  },
+  methods:{
+    search(){
+      Service.get("/users").then(response => {
+        if(!response.data){
+          this.result="NO DATA"
+        }else{
+          this.results=response.data
+          // this.$router.push('/users')
+        }
+      })
+    },
+    
+    submitForm() {
+    this.isValidName = this.name !== '';
+    this.isValidPass = this.pass !=='';
+    if (!this.isValidName || !this.isValidPass) {
+      // エラーメッセージを表示して、送信を中止する
+      return;
     }
-    .flexitem {
-      flex: 0 0 24%;
+
+    alert('本当にいいの？')
     }
-    .flexitem img {
-      display: block;
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-    }
-    .flexitem a {
-      display: block;
-      background-color: blue;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      margin: auto;
-      max-width: 80px;
-      text-align: center;
-      text-decoration: none;
-    }
-  </style>
+  }
+}
+
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
